@@ -2,6 +2,7 @@ package com.lessercodes.msscbreweryclient.web.client;
 
 import java.util.UUID;
 
+import com.lessercodes.msscbreweryclient.web.model.CustomerDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,30 @@ public class BreweryClientTest {
     @Test
     void deleteBeer() {
         client.deleteBeer(UUID.randomUUID());
+    }
+
+    @Test
+    void getCustomer() {
+        val customerDto = client.getCustomer(UUID.randomUUID());
+        Assertions.assertNotNull(customerDto);
+    }
+
+    @Test
+    void saveCustomer() {
+        val customerDto = CustomerDto.builder().name("New Customer").build();
+        val customerLocation = client.saveCustomer(customerDto);
+        Assertions.assertNotNull(customerLocation);
+    }
+
+    @Test
+    void updateCustomer() {
+        val customerDto = CustomerDto.builder().id(UUID.randomUUID()).name("Updated Customer").build();
+        client.updateCustomer(customerDto.getId(), customerDto);
+    }
+
+    @Test
+    void deleteCustomer() {
+        client.deleteCustomer(UUID.randomUUID());
     }
 
 }
